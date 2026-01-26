@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from PIL import Image
 from torchvision.transforms import v2 as transforms_v2
 
-from fundamentals.models.image_classifier.cats_and_dogs.dataloaders import (
+from dataloaders.dataloaders import (
     MEAN_NORMALIZATION_VALUES,
     STD_NORMALIZATION_VALUES,
 )
