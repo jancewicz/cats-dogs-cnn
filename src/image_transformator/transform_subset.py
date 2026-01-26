@@ -1,5 +1,6 @@
 from torch.utils.data import Dataset
 
+
 class SubsetTransformator(Dataset):
     """
     Custom subset transformator class that enables to apply different types of transformations to dataset without data

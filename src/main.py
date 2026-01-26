@@ -13,7 +13,7 @@ from dataloaders.dataloaders import (
     cats_dogs_training_set_dir,
     SIZE,
 )
-from models.cats_dogs_conv_nn import (
+from models.cats_dogs_alex_net import (
     ConvNNCatsDogsClassifier,
 )
 from models.predict import (
