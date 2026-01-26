@@ -20,7 +20,7 @@ from models.predict import (
     process_image,
     predict_image,
 )
-from fundamentals.training_and_evaluation.evaluate import NNEvaluator
+from model_evaluation.model_evaluator import NNEvaluator
 from utils.device import get_device
 from loguru import logger
 
