@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 from torchvision.models.resnet import resnet18, ResNet18_Weights
 
-from utils.device import get_device
-
 
 class ResNetCatsDogsClassifier(nn.Module):
     """
@@ -23,9 +21,3 @@ class ResNetCatsDogsClassifier(nn.Module):
 
     def forward(self, X: torch.Tensor):
         return self.resnet(X)
-
-
-device = get_device()
-
-resnet_model = ResNetCatsDogsClassifier(pretrained=True)
-resnet_model = resnet_model.to(device)

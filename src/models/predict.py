@@ -4,10 +4,7 @@ import torch.nn.functional as F
 from PIL import Image
 from torchvision.transforms import v2 as transforms_v2
 
-from dataloaders.dataloaders import (
-    MEAN_NORMALIZATION_VALUES,
-    STD_NORMALIZATION_VALUES,
-)
+from dataloaders.dataloaders import transform_config
 
 
 def process_image(new_img_path: str, size: tuple[int, int]):
@@ -19,7 +16,9 @@ def process_image(new_img_path: str, size: tuple[int, int]):
             transforms_v2.Resize(size=size, antialias=True),
             transforms_v2.ToDtype(torch.float32, scale=True),
             transforms_v2.Normalize(
-                mean=MEAN_NORMALIZATION_VALUES, std=STD_NORMALIZATION_VALUES
+                # Same values as in transformations made on training and validation set
+                mean=transform_config.mean_normalization_values,
+                std=transform_config.std_normalization_values,
             ),
         ]
     )
