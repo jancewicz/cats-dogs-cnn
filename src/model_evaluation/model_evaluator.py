@@ -18,10 +18,10 @@ class NNEvaluator:
         """
         self.model: Module = model
         self.data_loader: DataLoader = data_loader
-        self.metric_fn: Callable[[torch.tensor, torch.tensor], None] = metric_fn
+        self.metric_fn: Callable[[torch.Tensor, torch.Tensor], None] = metric_fn
         self.device: torch.device = device
 
-    def evaluate(self, aggregate_fn=torch.mean):
+    def evaluate(self, aggregate_fn: Callable = torch.mean):
         """
         Evaluates model and collect metrics within each batch.
         :param aggregate_fn: function to aggregate the batch metrics, computes mean by default
@@ -50,9 +50,12 @@ class NNEvaluator:
         # compute final result
         return metric.compute()
 
+    def get_evaluation_val(self):
+        return self.model.eva
+
 
 def evaluate_on_valid_set(
-    model: nn.Module, valid_set_dataloader: DataLoader, metric_fc
+    model: nn.Module, valid_set_dataloader: DataLoader, metric_fc: Callable
 ):
     """
     Perform evaluation on given dataloader with specific metric function. Returns the value of evaluation e.g:
