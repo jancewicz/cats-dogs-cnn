@@ -4,14 +4,14 @@ from pathlib import Path
 from configs.training_params import TrainingParams
 
 
-def load_model_checkpoint(model: nn.Module, checkpoints_path: str) -> nn.Module:
+def load_model_checkpoint(model: nn.Module, checkpoints_file_path: str) -> nn.Module:
     """
     Loads model weights from checkpoint file.
     :param model: Instance of predictive model.
-    :param checkpoints_path: Name of checkpoints file.
+    :param checkpoints_file_path: Name of checkpoints file.
     :return: Loaded model with weights from training.
     """
-    full_path: str = f"{TrainingParams.DEFAULT_CHECKPOINTS_DIR}/{checkpoints_path}"
+    full_path: str = f"{TrainingParams.DEFAULT_CHECKPOINTS_DIR}/{checkpoints_file_path}"
     weights_path = Path(full_path)
 
     if not weights_path.exists():

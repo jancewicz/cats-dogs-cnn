@@ -36,7 +36,7 @@ def main() -> None:
         device=get_device()
     )
     loaded_alex_net = load_model_checkpoint(
-        alex_net, checkpoints_path="cats_dogs_alexNet_weights.pt"
+        alex_net, checkpoints_file_path="cats_dogs_alexNet_weights.pt"
     )
 
     # ResNet - pretrained ResNet18 version
@@ -44,7 +44,7 @@ def main() -> None:
         device=get_device()
     )
     loaded_resnet = load_model_checkpoint(
-        resnet, checkpoints_path="cats_dogs_resnet18_weights.pt"
+        resnet, checkpoints_file_path="cats_dogs_resnet18_weights.pt"
     )
 
     # Metric function
@@ -64,7 +64,7 @@ def main() -> None:
     hermes_img_tensor: torch.Tensor = process_image(
         hermes_img, size=transform_config.img_size
     )
-    pred, proba = predict_image(loaded_alex_net, hermes_img_tensor)
+    pred, proba = predict_image(loaded_resnet, hermes_img_tensor)
     confidence = proba[0][pred].item()
 
     logger.info(f"Przewidywana klasa: {class_map[pred.item()]}, pewność: {confidence}")
