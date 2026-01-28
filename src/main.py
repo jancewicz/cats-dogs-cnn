@@ -1,6 +1,5 @@
 import os
 
-import torch
 import torchmetrics
 from dotenv import load_dotenv
 from dataloaders.dataloaders import (
