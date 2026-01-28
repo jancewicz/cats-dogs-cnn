@@ -1,8 +1,10 @@
 from typing import Callable
 
 import torch
+import torch.nn as nn
 from torch.nn import Module
 from torch.utils.data import DataLoader
+from utils.device import get_device
 
 
 class NNEvaluator:
@@ -47,3 +49,24 @@ class NNEvaluator:
 
         # compute final result
         return metric.compute()
+
+
+def evaluate_on_valid_set(
+    model: nn.Module, valid_set_dataloader: DataLoader, metric_fc
+):
+    """
+    Perform evaluation on given dataloader with specific metric function. Returns the value of evaluation e.g:
+    accuracy of the model on validation set.
+    :param model: Instance of predictive model.
+    :param valid_set_dataloader: Validation set dataloader.
+    :param metric_fc: metric function to be applied during evaluation.
+    :return: Value of computed metric on whole set.
+    """
+    model_evaluator = NNEvaluator(
+        model=model,
+        data_loader=valid_set_dataloader,
+        metric_fn=metric_fc,
+        device=get_device(),
+    )
+    evaluation = model_evaluator.evaluate()
+    return evaluation
