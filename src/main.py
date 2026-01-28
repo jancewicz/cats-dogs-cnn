@@ -1,5 +1,6 @@
 import os
 
+import torch
 import torchmetrics
 from dotenv import load_dotenv
 from dataloaders.dataloaders import (
@@ -31,13 +32,17 @@ def main() -> None:
 
     # AlexNet
     # Model hyperparameters used for training are in README
-    alex_net = ConvNNCatsDogsClassifier().to(device=get_device())
+    alex_net: ConvNNCatsDogsClassifier = ConvNNCatsDogsClassifier().to(
+        device=get_device()
+    )
     loaded_alex_net = load_model_checkpoint(
         alex_net, checkpoints_path="cats_dogs_alexNet_weights.pt"
     )
 
     # ResNet - pretrained ResNet18 version
-    resnet = ResNetCatsDogsClassifier(pretrained=False).to(device=get_device())
+    resnet: ResNetCatsDogsClassifier = ResNetCatsDogsClassifier(pretrained=False).to(
+        device=get_device()
+    )
     loaded_resnet = load_model_checkpoint(
         resnet, checkpoints_path="cats_dogs_resnet18_weights.pt"
     )
@@ -54,9 +59,11 @@ def main() -> None:
     resnet_acc = evaluate_on_valid_set(loaded_resnet, valid_set_dataloader, accuracy)
     logger.info(f"Accuracy on validation set with ResNet18: {resnet_acc}")
 
-    class_map = {0: "Cat", 1: "Dog"}
+    class_map: dict[int, str] = {0: "Cat", 1: "Dog"}
 
-    hermes_img_tensor = process_image(hermes_img, size=transform_config.img_size)
+    hermes_img_tensor: torch.Tensor = process_image(
+        hermes_img, size=transform_config.img_size
+    )
     pred, proba = predict_image(loaded_alex_net, hermes_img_tensor)
     confidence = proba[0][pred].item()
 
